@@ -1,24 +1,11 @@
 import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid';
-import type { Todo } from '../types';
 
-interface TodoStore {
-  todos: Todo[];
-  addTodo: (title: string, description?: string) => void;
-  removeTodo: (id: string) => void;
-  toggleTodo: (id: string) => void;
-  updateTodo: (id: string, title: string, description?: string) => void;
-  getTodos: () => Todo[];
-  getActiveTodos: () => Todo[];
-  getCompletedTodos: () => Todo[];
-  clearCompleted: () => void;
-}
-
-export const useTodoStore = create<TodoStore>((set, get) => ({
+export const useTodoStore = create((set, get) => ({
   todos: [],
 
-  addTodo: (title: string, description?: string) => {
-    const newTodo: Todo = {
+  addTodo: (title, description) => {
+    const newTodo = {
       id: uuidv4(),
       title,
       description,
@@ -30,13 +17,13 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
     }));
   },
 
-  removeTodo: (id: string) => {
+  removeTodo: (id) => {
     set((state) => ({
       todos: state.todos.filter((todo) => todo.id !== id),
     }));
   },
 
-  toggleTodo: (id: string) => {
+  toggleTodo: (id) => {
     set((state) => ({
       todos: state.todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -44,7 +31,7 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
     }));
   },
 
-  updateTodo: (id: string, title: string, description?: string) => {
+  updateTodo: (id, title, description) => {
     set((state) => ({
       todos: state.todos.map((todo) =>
         todo.id === id ? { ...todo, title, description } : todo

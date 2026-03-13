@@ -12,7 +12,7 @@ export const TodoList = () => {
   const updateTodo = useTodoStore((state) => state.updateTodo);
   const clearCompleted = useTodoStore((state) => state.clearCompleted);
 
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+  const [filter, setFilter] = useState('all');
 
   const getFilteredTodos = () => {
     switch (filter) {

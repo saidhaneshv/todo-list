@@ -1,15 +1,11 @@
 import { useState } from 'react';
 import '../styles/TodoInput.css';
 
-interface TodoInputProps {
-  onAdd: (title: string, description?: string) => void;
-}
-
-export const TodoInput = ({ onAdd }: TodoInputProps) => {
+export const TodoInput = ({ onAdd }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (title.trim()) {
       onAdd(title, description);
